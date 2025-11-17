@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  #Microservicio de Reservaciones
+  reservaciones:
+    #Nombre del directorio/contexto donde está el Dockerfile para el servicio
+    build: reservacionesD 
+    mem_limit: 512m
+    #Mapeo del puerto de la aplicación (3012) al puerto del host (3012)
+    ports:
+      - "3012:3012"
+    environment:
+      DB_URL: jdbc:mysql://reservaciones_db:3306/reservaciones?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_USER_NAME: root
+      DB_PASSWORD: carlos12345678
+      JWT_SECRET: UnaClavePorDefectoDeEmergenciaParaQueArranqueElServicioYSeaLoSuficientementeLarga
+      
+    restart: always
+    
+    depends_on:
+      reservaciones_db:
+        condition: service_healthy
+
+  #2. Base de Datos MySQL para el Servicio de Reservaciones
+  reservaciones_db:
+    image: mysql:8.3.0
+    #Mapeamos a 3315 en el host
+    ports:
+      - "3315:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: carlos12345678
+      MYSQL_PASSWORD: carlos12345678
+      #Nombre de la BD
+      MYSQL_DATABASE: reservaciones
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
