@@ -77,7 +77,7 @@ public class SecurityConfig {
             	.requestMatchers("/api/empleados/guardar").hasAnyAuthority("Supervisor", "Administrador")
             	.requestMatchers("/api/empleados/listat").hasAnyAuthority("Cajero", "Supervisor", "Administrador")
             	.requestMatchers("/api/empleados/buscaid/**").hasAnyAuthority("Cliente", "Mesero", "Cajero", "Supervisor", "Administrador")
-            	.requestMatchers("/api/empleados/actualizar/**").hasAnyAuthority("Supervisor", "Administrador")
+            	.requestMatchers("/api/empleados/actualizar/**").hasAnyAuthority("Supervisor", "Administrador", "Mesero", "Cajero")
             	.requestMatchers("/api/empleados/eliminar/**").hasAnyAuthority("Supervisor", "Administrador")
             	.requestMatchers("/api/empleados/buscarEmpleado/**").hasAnyAuthority("Cajero", "Supervisor", "Administrador")
             	.requestMatchers("/api/empleados/usuario/**").hasAnyAuthority("Mesero", "Cajero", "Supervisor", "Administrador")
@@ -87,7 +87,7 @@ public class SecurityConfig {
             	
             	//Puesto
             	.requestMatchers("/api/puestos/guardar").hasAnyAuthority("Supervisor", "Administrador")
-            	.requestMatchers("/api/puestos/listat").hasAnyAuthority("Supervisor", "Administrador", "Cajero")
+            	.requestMatchers("/api/puestos/listat").hasAnyAuthority("Supervisor", "Administrador", "Cajero", "Mesero")
             	.requestMatchers("/api/puestos/buscaid/**").hasAnyAuthority("Cliente", "Mesero", "Cajero", "Supervisor", "Administrador")
             	.requestMatchers("/api/puestos/actualizar/**").hasAnyAuthority("Supervisor", "Administrador")
             	.requestMatchers("/api/puestos/eliminar/**").hasAnyAuthority("Supervisor", "Administrador")
